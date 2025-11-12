@@ -1,0 +1,29 @@
+services:
+  jellyfin-nvidia:
+    extends:
+      file: ../service.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    user: root
+    #   - JELLYFIN_PublishedServerUrl=
+    volumes:
+      - ./config:/config
+      - ${MEDIA_MOVIES_PATH}:/Films
+      - ${MEDIA_SERIES_PATH}:/TVShows
+      - ${ARR_MEDIA_PATH}:/media/arr
+    ports:
+      - ${JELLYFIN_PORT}:8096 # jellyfin
+      - 1900:1900/udp # jellyfin Client Discovery
+      - 7359:7359/udp # jellyfin Service Discovery
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${JELLYFIN_REFNAME}.entrypoints=web"
+      - "traefik.http.routers.${JELLYFIN_REFNAME}.rule=Host(`${HOST_JELLYFIN_URL}`)"
+      - "traefik.http.services.${JELLYFIN_REFNAME}.loadbalancer.server.port=${JELLYFIN_PORT}"
+      - homepage.group=Media
+      - homepage.name=Jellyfin
+      - homepage.icon=jellyfin.png
+      - homepage.href=http://${HOST_JELLYFIN_URL}/
+      - homepage.description=Media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached.
+    restart: unless-stopped

@@ -1,0 +1,13 @@
+services:
+  arr-service:
+    network_mode: "service:gluetun"
+    environment:
+      PUID:${PUID}
+      PGID:${PUID}
+      TZ:${PUID}
+    volumes:
+      ${MEDIA_BASE_PATH}:/arr
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true

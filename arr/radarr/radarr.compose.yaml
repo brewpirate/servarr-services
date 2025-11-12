@@ -1,0 +1,25 @@
+services:
+  radarr:
+    extends:
+      file: ../service.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    volumes:
+      - ./config:/config
+      - ${MEDIA_MOVIES_PATH}:/data
+      - ${ARR_MEDIA_PATH}:/media/arr
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${RADARR_REFNAME}.entrypoints=web"
+      - "traefik.http.routers.${RADARR_REFNAME}.rule=Host(`${RADARR_HOST_URL}`)"
+      - "traefik.http.services.${RADARR_REFNAME}.loadbalancer.server.port=${RADARR_PORT}"
+      - homepage.group=Arr
+      - homepage.name=Radarr
+      - homepage.icon=radarr.png
+      - homepage.href=http://${RADARR_HOST_URL}/
+      - homepage.description=See all your upcoming movies in one convenient location. 
+    ports:
+      - 7878:7878 # Radarr
+
+    restart: unless-stopped
