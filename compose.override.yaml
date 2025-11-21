@@ -1,31 +1,47 @@
 services:
+  homepage:
+    volumes:
+      - ./override/homepage/bookmarks.yaml:/app/config/bookmarks.yaml
   gluetun:
-    extends:
-      file: gluetun/proton.compose.yaml
-      service: gluetun
+    # Create a compose file for your provider:
+    # https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers
+    # extends:
+    #   file: ./override/gluetun/proton.compose.yaml
+    #   service: gluetun
     ports:
       - ${SABNZBD_UI_PORT}:8080 # sabnzbd
       - 9090:9090 # sabnzbd
+      - ${QBITTORRENT_UI_PORT}:8085 # qbittorrent
+      - ${QBITTORRENT_DL_PORT}:6881 # qbittorrent
 
-  jellyfin:
+  # Enable Support for NVIDIA GPU Transcoding
+  # jellyfin:
+  #   extends:
+  #     file: ./services/nvidia.compose.yaml
+  #     service: arr-service
+
+  # Enable NVIDIA GPU Support 
+  # tdarr:
+  #   extends:
+  #     file: ./services/nvidia.compose.yaml
+  #     service: arr-service
+  #   environment:
+  #     - NVIDIA_DRIVER_CAPABILITIES=all
+  #     - NVIDIA_VISIBLE_DEVICES=all
+
+  # https://beszel.dev/guide/getting-started
+  # beszel-agent:
+  #   environment:
+  #     KEY: ${BESZEL_KEY}
+  #     TOKEN: ${BESZEL_TOKEN}
+
+  # Put downloaders behind a vpn! Or don't..
+  qbittorrent:
     extends:
-      file: service/nvidia.compose.yaml
+      file: ./services/vpn.compose.yaml
       service: arr-service
-
-  tdarr:
-    extends:
-      file: service/nvidia.compose.yaml
-      service: arr-service
-    environment:
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
-
-  beszel-agent:
-    environment:
-      KEY: ${BESZEL_KEY}
-      TOKEN: ${BESZEL_TOKEN}
 
   sabnzbd:
     extends:
-      file: service/vpn.compose.yaml
+      file: ./services/vpn.compose.yaml
       service: arr-service
