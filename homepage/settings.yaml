@@ -27,6 +27,10 @@ layout:
   Utils:
     icon: mdi-tools-#FFFFFF
   Guides:
+    style: row
+    columns: 2
     icon: mdi-book-open-variant-outline-#FFFFFF
   Github:
+    style: row
+    columns: 2
     icon: mdi-github-#FFFFFF

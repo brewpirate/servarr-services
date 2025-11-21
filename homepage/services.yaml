@@ -1,0 +1,16 @@
+- Guides:
+    - TRaSH Guides:
+        icon: trash-guides.png
+        href: https://trash-guides.info/
+
+    - Servarr Wiki:
+        icon: servarr.svg
+        href: https://wiki.servarr.com/
+
+- Github:
+    - servarr-services:
+        icon: github.png
+        href: https://github.com/brewpirate/servarr-services
+    - servarr-homelab-sample:
+        icon: github.png
+        href: https://github.com/brewpirate/servarr-homelab-sample
