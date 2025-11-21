@@ -4,14 +4,9 @@ services:
     container_name: homepage
     user: root 
     environment:
-      TZ:${PUID}
-      LOG_LEVEL:info
-      HOMEPAGE_ALLOWED_HOSTS:*
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.${HOMEPAGE_REFNAME}.entrypoints: "web"
-      traefik.http.routers.${HOMEPAGE_REFNAME}.rule: "Host(`${HOST_HOMEPAGE_URL}`)"
-      traefik.http.services.${HOMEPAGE_REFNAME}.loadbalancer.server.port: "${HOMEPAGE_UI_PORT}"
+      - TZ=${PUID}
+      - LOG_LEVEL=info
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
     volumes:
       - ./config:/app/config
       - ./settings.yaml:/app/config/settings.yaml
@@ -19,4 +14,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports: 
       ${HOMEPAGE_UI_PORT}:3000 # homepage
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${HOMEPAGE_REF}.entrypoints=web"
+      - "traefik.http.routers.${HOMEPAGE_REF}.rule=Host(`${HOST_HOMEPAGE_URL}`)"
+      - "traefik.http.services.${HOMEPAGE_REF}.loadbalancer.server.port=${HOMEPAGE_UI_PORT}"
     restart: unless-stopped

@@ -1,19 +1,18 @@
 services:
   tdarr:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service  
     container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr:latest
     restart: unless-stopped
-    network_mode: bridge
     ports:
-      - 8265:8265 # webUI port
+      - ${TDARR_PORT}:8265 # webUI port
       - 8266:8266 # server port
-    env_file:
-      - ../.env.global
     environment:
-      - UMASK_SET=002
       - serverIP=0.0.0.0
       - serverPort=8266
-      - webUIPort=8265
+      - webUIPort=${TDARR_PORT}
       - internalNode=true
       - inContainer=true
       - ffmpegVersion=7
@@ -24,22 +23,23 @@ services:
       - cronPluginUpdate=
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tdarr.entrypoints=web"
-      - "traefik.http.routers.tdarr.rule=Host(`${HOST_TDARR_URL}`)"
-      - "traefik.http.services.tdarr.loadbalancer.server.port=8265"
-      - homepage.group=Utils
-      - homepage.name=TDARR
-      - homepage.icon=tdarr.png
-      - homepage.href=http://${HOST_TDARR_URL}/
     volumes:
       - ./server:/app/server
       - ./configs:/app/configs
       - ${PENDING_MOVIES_PATH}:/media
       - ${PENDING_MOVIES_PATH}:/pending
       - ${CACHE_DRIVE}/transcode_cache:/temp
-      - ${ARR_MEDIA_PATH}:/media/arr
+      - ${ARR_MEDIA_PATH}:/media/arr      
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${TDARR_REF}.entrypoints=web"
+      - "traefik.http.routers.${TDARR_REF}.rule=Host(`${HOST_TDARR_URL}`)"
+      - "traefik.http.services.${TDARR_REF}.loadbalancer.server.port=${TDARR_PORT}"
+      - homepage.group=Utils
+      - homepage.name=TDARR
+      - homepage.icon=tdarr.png
+      - homepage.showstats=true
+      - homepage.href=http://${HOST_TDARR_URL}/
     devices:
       - /dev/dri:/dev/dri   
     deploy:

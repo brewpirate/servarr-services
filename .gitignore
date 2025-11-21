@@ -3,6 +3,6 @@
 # Ignore Service config dir
 **/config/**
 
-# Allow .gitignore
+# Keep these files!
 !**/.gitkeep
 !.gitkeep

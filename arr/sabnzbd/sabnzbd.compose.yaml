@@ -12,9 +12,9 @@ services:
       - ${ARR_MEDIA_PATH}:/media/arr
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${SABNZBD_REFNAME}.entrypoints=web"
-      - "traefik.http.routers.${SABNZBD_REFNAME}.rule=Host(`${HOST_SABNZBD_URL}`)"
-      - "traefik.http.services.${SABNZBD_REFNAME}.loadbalancer.server.port=${SABNZBD_UI_PORT}"    
+      - "traefik.http.routers.${SABNZBD_REF}.entrypoints=web"
+      - "traefik.http.routers.${SABNZBD_REF}.rule=Host(`${HOST_SABNZBD_URL}`)"
+      - "traefik.http.services.${SABNZBD_REF}.loadbalancer.server.port=${SABNZBD_UI_PORT}"    
       - homepage.group=Arr
       - homepage.name=SABnzbd
       - homepage.icon=sabnzbd.png

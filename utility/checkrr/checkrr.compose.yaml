@@ -1,0 +1,21 @@
+services:
+  checkrr:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    container_name:  
+    image: aetaric/checkrr:latest
+    volumes:
+      - ./config/checkrr.yaml:/etc/checkrr.yaml
+      - ./config/checkrr.db:/checkrr.db
+      - ${ARR_MEDIA_PATH}:/media/arr
+    ports:
+      - ${CHECKRR_PORT}:8585
+    labels:
+      - homepage.group=Utils
+      - homepage.name=checkrr
+      - homepage.icon=checkrr.png
+      - homepage.showstats=true
+      - homepage.href=http://${HOST_CHECKRR_URL}/
+      - homepage.description=Checkrr Scans your library files for corrupt media and optionally replaces the files via sonarr and radarr
+    restart: on-failure

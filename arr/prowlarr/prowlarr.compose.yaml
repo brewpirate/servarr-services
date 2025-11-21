@@ -7,16 +7,18 @@ services:
     container_name: prowlarr
     volumes:
       - ./config:/config
+    ports:
+      - ${PROWLARR_PORT}:9696 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${PROWLARR_REFNAME}.entrypoints=web"
-      - "traefik.http.routers.${PROWLARR_REFNAME}.rule=Host(`${PROWLARR_HOST_URL}`)"
-      - "traefik.http.services.${PROWLARR_REFNAME}.loadbalancer.server.port=${PROWLARR_PORT}"
+      - "traefik.http.routers.${PROWLARR_REF}.entrypoints=web"
+      - "traefik.http.routers.${PROWLARR_REF}.rule=Host(`${PROWLARR_HOST_URL}`)"
+      - "traefik.http.services.${PROWLARR_REF}.loadbalancer.server.port=${PROWLARR_PORT}"
       - homepage.group=Arr
       - homepage.name=Prowlarr
       - homepage.icon=prowlarr.png
+      - homepage.showstats=true
       - homepage.href=http://${PROWLARR_HOST_URL}/
       - homepage.description=The Ultimate Indexer Manager.
-    ports:
-      - ${PROWLARR_PORT}:9696 
+
     restart: unless-stopped

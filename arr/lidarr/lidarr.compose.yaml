@@ -1,0 +1,26 @@
+services:
+  lidarr:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    volumes:
+      - ./config:/config
+      - ${MEDIA_MUSIC_PATH}:/music
+      - ${DOWNLOAD_MUSIC_PATH}:/downloads
+      - ${ARR_MEDIA_PATH}:/media/arr
+    ports:
+      - ${LIDARR_PORT}:8686
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${LIDARR_REF}.entrypoints=web"
+      - "traefik.http.routers.${LIDARR_REF}.rule=Host(`${HOST_LIDARR_URL}`)"
+      - "traefik.http.services.${LIDARR_REF}.loadbalancer.server.port=${LIDARR_PORT}"
+      - homepage.group=Arr
+      - homepage.name=Lidarr
+      - homepage.icon=lidarr.png
+      - homepage.showstats=true
+      - homepage.href=http://${HOST_LIDARR_URL}/
+      - homepage.description= Music collection manager for Usenet and BitTorrent users.
+    restart: unless-stopped
