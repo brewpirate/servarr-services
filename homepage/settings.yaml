@@ -26,3 +26,7 @@ layout:
     icon: mdi-multimedia-#FFFFFF
   Utils:
     icon: mdi-tools-#FFFFFF
+  Guides:
+    icon: mdi-book-open-variant-outline-#FFFFFF
+  Github:
+    icon: mdi-github-#FFFFFF

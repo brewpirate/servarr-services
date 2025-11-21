@@ -9,6 +9,8 @@ services:
       - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
     volumes:
       - ./config:/app/config
+      - ./bookmarks.yaml:/app/config/bookmarks.yaml
+      - ./services.yaml:/app/config/services.yaml
       - ./settings.yaml:/app/config/settings.yaml
       - ./docker.yaml:/app/config/docker.yaml
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -17,6 +19,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${HOMEPAGE_REF}.entrypoints=web"
-      - "traefik.http.routers.${HOMEPAGE_REF}.rule=Host(`${HOST_HOMEPAGE_URL}`)"
+      - "traefik.http.routers.${HOMEPAGE_REF}.rule=Host(`${HOMEPAGE_URL}`)"
       - "traefik.http.services.${HOMEPAGE_REF}.loadbalancer.server.port=${HOMEPAGE_UI_PORT}"
     restart: unless-stopped
