@@ -1,0 +1,24 @@
+services:
+  qbittorrent:
+    extends:
+      file: ../../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - WEBUI_PORT=${QBITTORRENT_PORT}
+      - TORRENTING_PORT=${QBITTORRENT_DL_PORT}
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_TORRENT_PATH}:/downloads
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${QBITTORRENT_REF}.entrypoints=web"
+      - "traefik.http.routers.${QBITTORRENT_REF}.rule=Host(`${QBITTORRENT_HOST}`)"
+      - "traefik.http.services.${QBITTORRENT_REF}.loadbalancer.server.port=${QBITTORRENT_PORT}"
+      - homepage.group=Arr
+      - homepage.name=qBittorrent
+      - homepage.icon=qbittorrent.png
+      - homepage.href=http://${QBITTORRENT_HOST}/
+      - homepage.description=an open-source software alternative to µTorrent.
+    restart: always
