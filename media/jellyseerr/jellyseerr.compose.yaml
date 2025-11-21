@@ -1,0 +1,23 @@
+services:
+  jellyseerr:
+    extends:
+      file: ../../service-base.compose.yaml
+      service: arr-service
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    volumes:
+      - ./config:/app/config
+    ports:
+      - ${JELLYSEERR_PORT}:5055 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${JELLYSEERR_REF}.entrypoints=web"
+      - "traefik.http.routers.${JELLYSEERR_REF}.rule=Host(`${JELLYSEERR_URL}`)"
+      - "traefik.http.services.${JELLYSEERR_REF}.loadbalancer.server.port=${JELLYSEERR_PORT}"
+      - homepage.group=Media
+      - homepage.name=Jellyseerr
+      - homepage.icon=jellyseerr.png
+      - homepage.showstats=true
+      - homepage.href=http://${JELLYSEERR_URL}/
+      - homepage.description=Manage requests for your media library
+    restart: unless-stopped

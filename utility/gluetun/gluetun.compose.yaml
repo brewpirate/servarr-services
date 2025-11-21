@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ./data:/gluetun
+      - ./config:/gluetun
     ports:
       - 6881:6881
       - 6881:6881/udp

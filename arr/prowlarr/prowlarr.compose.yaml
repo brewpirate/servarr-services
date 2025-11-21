@@ -12,13 +12,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${PROWLARR_REF}.entrypoints=web"
-      - "traefik.http.routers.${PROWLARR_REF}.rule=Host(`${PROWLARR_HOST_URL}`)"
+      - "traefik.http.routers.${PROWLARR_REF}.rule=Host(`${PROWLARR_URL}`)"
       - "traefik.http.services.${PROWLARR_REF}.loadbalancer.server.port=${PROWLARR_PORT}"
       - homepage.group=Arr
       - homepage.name=Prowlarr
       - homepage.icon=prowlarr.png
       - homepage.showstats=true
-      - homepage.href=http://${PROWLARR_HOST_URL}/
+      - homepage.href=http://${PROWLARR_URL}/
       - homepage.description=The Ultimate Indexer Manager.
-
     restart: unless-stopped

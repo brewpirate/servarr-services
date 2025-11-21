@@ -2,9 +2,12 @@ services:
   arr-service:
     environment:
       PUID: ${PUID}
-      PGID: ${PUID}
-      TZ: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
       UMASK: ${UMASK}
     volumes:
       - ${ARR_MEDIA_PATH}:/media/arr
+    labels:
+      - homepage.showstats=true
+
 

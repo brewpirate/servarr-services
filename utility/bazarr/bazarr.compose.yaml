@@ -1,0 +1,25 @@
+services:
+  bazarr:
+    extends:
+      file: ../../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    volumes:
+      - ./config:/config
+      - ${MEDIA_MOVIES_PATH}:/movies
+      - ${MEDIA_SERIES_PATH}:/tv
+    ports:
+      - ${BAZARR_PORT}:6767
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${BAZARR_REF}.entrypoints=web"
+      - "traefik.http.routers.${BAZARR_REF}.rule=Host(`${BAZARR_URL}`)"
+      - "traefik.http.services.${BAZARR_REF}.loadbalancer.server.port=${BAZARR_PORT}"
+      - homepage.group=Utils
+      - homepage.name=Bazarr
+      - homepage.icon=bazarr.png
+      - homepage.showstats=true
+      - homepage.href=http://${BAZARR_URL}/
+      - homepage.description=Companion application to Sonarr and Radarr that manages and downloads subtitles based on your requirements.
+    restart: unless-stopped

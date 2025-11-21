@@ -6,3 +6,26 @@ services:
     ports:
       - ${SABNZBD_UI_PORT}:8080 # sabnzbd
       - 9090:9090 # sabnzbd
+
+  jellyfin:
+    extends:
+      file: service/nvidia.compose.yaml
+      service: arr-service
+
+  tdarr:
+    extends:
+      file: service/nvidia.compose.yaml
+      service: arr-service
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+
+  beszel-agent:
+    environment:
+      KEY: ${BESZEL_KEY}
+      TOKEN: ${BESZEL_TOKEN}
+
+  sabnzbd:
+    extends:
+      file: service/vpn.compose.yaml
+      service: arr-service

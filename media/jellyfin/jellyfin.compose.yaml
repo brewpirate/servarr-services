@@ -1,5 +1,5 @@
 services:
-  jellyfin-nvidia:
+  jellyfin:
     extends:
       file: ../../service-base.compose.yaml
       service: arr-service
@@ -10,7 +10,6 @@ services:
       - ./config:/config
       - ${MEDIA_MOVIES_PATH}:/Films
       - ${MEDIA_SERIES_PATH}:/TVShows
-      - ${ARR_MEDIA_PATH}:/media/arr
     ports:
       - ${JELLYFIN_PORT}:8096 # jellyfin
       - 1900:1900/udp # jellyfin Client Discovery

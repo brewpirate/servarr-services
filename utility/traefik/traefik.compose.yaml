@@ -22,3 +22,4 @@
         - homepage.icon=traefik.png
         - homepage.showstats=true
         - homepage.href=http://${HOST_TRAEFIK_URL}/
+      restart: unless-stopped

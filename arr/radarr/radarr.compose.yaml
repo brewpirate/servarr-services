@@ -9,17 +9,16 @@ services:
       - ./config:/config
       - ${MEDIA_MOVIES_PATH}:/data
     ports:
-      - ${RADARR_PORT}:7878 # Radarr
+      - ${RADARR_PORT}:7878
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${RADARR_REF}.entrypoints=web"
-      - "traefik.http.routers.${RADARR_REF}.rule=Host(`${RADARR_HOST_URL}`)"
+      - "traefik.http.routers.${RADARR_REF}.rule=Host(`${RADARR_URL}`)"
       - "traefik.http.services.${RADARR_REF}.loadbalancer.server.port=${RADARR_PORT}"
       - homepage.group=Arr
       - homepage.name=Radarr
       - homepage.icon=radarr.png
       - homepage.showstats=true
-      - homepage.href=http://${RADARR_HOST_URL}/
+      - homepage.href=http://${RADARR_URL}/
       - homepage.description=See all your upcoming movies in one convenient location. 
-
     restart: unless-stopped

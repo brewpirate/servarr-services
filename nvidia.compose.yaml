@@ -1,0 +1,13 @@
+# Add Nvidia GPU support to a container
+# @see - https://docs.docker.com/compose/how-tos/gpu-support/
+services:
+  arr-service:
+    devices:
+      - /dev/dri:/dev/dri   
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
