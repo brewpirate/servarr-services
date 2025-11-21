@@ -1,14 +1,13 @@
 services:
   radarr:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     volumes:
       - ./config:/config
       - ${MEDIA_MOVIES_PATH}:/data
-      - ${ARR_MEDIA_PATH}:/media/arr
     ports:
       - ${RADARR_PORT}:7878 # Radarr
     labels:

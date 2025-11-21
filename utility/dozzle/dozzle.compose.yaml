@@ -1,7 +1,7 @@
 services:
   dozzle:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service
     image: amir20/dozzle:latest
     volumes:

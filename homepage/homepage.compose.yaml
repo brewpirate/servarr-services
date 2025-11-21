@@ -13,7 +13,7 @@ services:
       - ./docker.yaml:/app/config/docker.yaml
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports: 
-      ${HOMEPAGE_UI_PORT}:3000 # homepage
+      - ${HOMEPAGE_UI_PORT}:3000 # homepage
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${HOMEPAGE_REF}.entrypoints=web"

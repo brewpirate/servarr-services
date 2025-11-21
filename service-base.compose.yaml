@@ -1,9 +1,10 @@
 services:
   arr-service:
     environment:
-      PUID:${PUID}
-      PGID:${PUID}
-      TZ:${PUID}
-      UMASK:${UMASK}
+      PUID: ${PUID}
+      PGID: ${PUID}
+      TZ: ${PUID}
+      UMASK: ${UMASK}
     volumes:
-      ${MEDIA_BASE_PATH}:/arr
+      - ${ARR_MEDIA_PATH}:/media/arr
+

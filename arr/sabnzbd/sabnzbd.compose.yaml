@@ -1,14 +1,14 @@
 services:
   sabnzbd:
     extends:
-      file: ../vpn-service.compose.yaml
+      file: ../../vpn-service.compose.yaml
       service: arr-service
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     volumes:
       - ./config:/config
       - ${DOWNLOAD_NZBD_PATH}/complete:/downloads
-      - ${PENDING_MOVIES_PATH}/incomplete:/incomplete-downloads 
+      - ${DOWNLOAD_NZBD_PATH}/incomplete:/incomplete-downloads 
       - ${ARR_MEDIA_PATH}:/media/arr
     labels:
       - "traefik.enable=true"

@@ -1,14 +1,13 @@
 services:
   checkrr:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service
-    container_name:  
+    container_name: checkrr
     image: aetaric/checkrr:latest
     volumes:
       - ./config/checkrr.yaml:/etc/checkrr.yaml
       - ./config/checkrr.db:/checkrr.db
-      - ${ARR_MEDIA_PATH}:/media/arr
     ports:
       - ${CHECKRR_PORT}:8585
     labels:

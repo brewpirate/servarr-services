@@ -1,7 +1,7 @@
 services:
   prowlarr:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr

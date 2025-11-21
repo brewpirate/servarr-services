@@ -1,7 +1,7 @@
 services:
   tdarr:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service  
     container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr:latest
@@ -26,10 +26,8 @@ services:
     volumes:
       - ./server:/app/server
       - ./configs:/app/configs
-      - ${PENDING_MOVIES_PATH}:/media
-      - ${PENDING_MOVIES_PATH}:/pending
+      - ${MEDIA_MOVIES_PATH}:/media
       - ${CACHE_DRIVE}/transcode_cache:/temp
-      - ${ARR_MEDIA_PATH}:/media/arr      
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${TDARR_REF}.entrypoints=web"

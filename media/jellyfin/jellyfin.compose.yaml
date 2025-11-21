@@ -1,7 +1,7 @@
 services:
   jellyfin-nvidia:
     extends:
-      file: ../service-base.compose.yaml
+      file: ../../service-base.compose.yaml
       service: arr-service
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
