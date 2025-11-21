@@ -20,7 +20,6 @@ services:
       - homepage.showstats=true
       - homepage.href=http://${BESZEL_URL}/
       - homepage.description=Lightweight server monitoring hub with historical data, docker stats, and alerts.
-        restart: unless-stopped
     restart: unless-stopped
 
 

@@ -12,12 +12,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${SABNZBD_REF}.entrypoints=web"
-      - "traefik.http.routers.${SABNZBD_REF}.rule=Host(`${HOST_SABNZBD_URL}`)"
+      - "traefik.http.routers.${SABNZBD_REF}.rule=Host(`${SABNZBD_URL}`)"
       - "traefik.http.services.${SABNZBD_REF}.loadbalancer.server.port=${SABNZBD_UI_PORT}"    
       - homepage.group=Arr
       - homepage.name=SABnzbd
       - homepage.icon=sabnzbd.png
       - homepage.showstats=true
-      - homepage.href=http://${HOST_SABNZBD_URL}/
+      - homepage.href=http://${SABNZBD_URL}/
       - homepage.description=The free and easy binary newsreader
     restart: unless-stopped

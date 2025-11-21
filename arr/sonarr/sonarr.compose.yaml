@@ -13,12 +13,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${SONARR_REF}.entrypoints=web"
-      - "traefik.http.routers.${SONARR_REF}.rule=Host(`${HOST_SONARR_URL}`)"
+      - "traefik.http.routers.${SONARR_REF}.rule=Host(`${SONARR_URL}`)"
       - "traefik.http.services.${SONARR_REF}.loadbalancer.server.port=${SONARR_REF}"
       - homepage.group=Arr
       - homepage.name=Sonarr
       - homepage.icon=sonarr.png
       - homepage.showstats=true
-      - homepage.href=http://${HOST_SONARR_URL}/
+      - homepage.href=http://${SONARR_URL}/
       - homepage.description=Internet PVR for Usenet and Torrents. 
     restart: unless-stopped

@@ -15,6 +15,6 @@ services:
       - homepage.name=checkrr
       - homepage.icon=checkrr.png
       - homepage.showstats=true
-      - homepage.href=http://${HOST_CHECKRR_URL}/
+      - homepage.href=http://${CHECKRR_URL}/
       - homepage.description=Checkrr Scans your library files for corrupt media and optionally replaces the files via sonarr and radarr
     restart: on-failure

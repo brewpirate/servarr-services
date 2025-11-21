@@ -14,13 +14,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${DOZZLE_REF}.entrypoints=web"
-      - "traefik.http.routers.${DOZZLE_REF}.rule=Host(`${HOST_DOZZLE_URL}`)"
+      - "traefik.http.routers.${DOZZLE_REF}.rule=Host(`${DOZZLE_URL}`)"
       - "traefik.http.services.${DOZZLE_REF}.loadbalancer.server.port=${DOZZLE_PORT}"
       - homepage.group=Utils
       - homepage.name=Dozzle
       - homepage.icon=dozzle.png
       - homepage.showstats=true
-      - homepage.href=http://${HOST_DOZZLE_URL}/
+      - homepage.href=http://${DOZZLE_URL}/
       - homepage.description=Simple Container Monitoring and Logging
 
 

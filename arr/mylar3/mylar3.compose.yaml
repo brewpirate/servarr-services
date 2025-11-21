@@ -9,7 +9,7 @@ services:
       - ./config:/config
       - ${MEDIA_COMICS_PATH}:/comics
       - ${DOWNLOAD_COMICS_PATH}/comics:/downloads
-    port:
+    ports:
       - ${MYLAR_3_PORT}:8090
     labels:
       - "traefik.enable=true"

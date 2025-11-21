@@ -22,19 +22,19 @@ services:
       - maxLogSizeMB=10
       - cronPluginUpdate=
     volumes:
-      - ./server:/app/server
-      - ./configs:/app/configs
+      - ./config/server:/app/server
+      - ./config:/app/configs
       - ${MEDIA_MOVIES_PATH}:/media
       - ${CACHE_DRIVE}/transcode_cache:/temp
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${TDARR_REF}.entrypoints=web"
-      - "traefik.http.routers.${TDARR_REF}.rule=Host(`${HOST_TDARR_URL}`)"
+      - "traefik.http.routers.${TDARR_REF}.rule=Host(`${TDARR_URL}`)"
       - "traefik.http.services.${TDARR_REF}.loadbalancer.server.port=${TDARR_UI_PORT}"
       - homepage.group=Utils
       - homepage.name=TDARR
       - homepage.icon=tdarr.png
       - homepage.showstats=true
-      - homepage.href=http://${HOST_TDARR_URL}/
+      - homepage.href=http://${TDARR_URL}/
     
 
