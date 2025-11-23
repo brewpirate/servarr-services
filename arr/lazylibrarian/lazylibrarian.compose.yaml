@@ -1,0 +1,27 @@
+services:
+  lazylibrarian:
+    extends:
+      file: ../../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_BOOKS_PATH}:/downloads
+      - ${MEDIA_EBOOKS_PATH}:/books 
+    ports:
+      - ${LAZYLIB_PORT}:5299
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${LAZYLIB_REF}.entrypoints=web"
+      - "traefik.http.routers.${LAZYLIB_REF}.rule=Host(`${LAZYLIB_URL}`)"
+      - "traefik.http.services.${LAZYLIB_REF}.loadbalancer.server.port=${LAZYLIB_PORT}"
+      - homepage.group=Arr
+      - homepage.name=LazyLibrarian
+      - homepage.icon=lazylibrarian.png
+      - homepage.showstats=true
+      - homepage.href=http://${LAZYLIB_URL}/
+      - homepage.description=LazyLibrarian is a SickBeard, CouchPotato, Headphones-like application for ebooks, audiobooks and magazines
+    restart: unless-stopped
