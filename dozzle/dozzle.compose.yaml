@@ -1,0 +1,26 @@
+services:
+  dozzle:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - ${DOZZLE_PORT}:8080
+    environment:
+      - DOZZLE_ENABLE_ACTIONS=true
+      - DOZZLE_ENABLE_SHELL=true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${DOZZLE_REF}.entrypoints=web"
+      - "traefik.http.routers.${DOZZLE_REF}.rule=Host(`${DOZZLE_URL}`)"
+      - "traefik.http.services.${DOZZLE_REF}.loadbalancer.server.port=${DOZZLE_PORT}"
+      - homepage.group=Utils
+      - homepage.name=Dozzle
+      - homepage.icon=dozzle.png
+      - homepage.showstats=true
+      - homepage.href=http://${DOZZLE_URL}/
+      - homepage.description=Simple Container Monitoring and Logging
+
+

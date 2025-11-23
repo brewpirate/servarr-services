@@ -1,0 +1,27 @@
+services:
+  kavita:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    volumes:
+      - ./config:/config 
+      - ${MEDIA_BASE_PATH}:/data
+      - ${MEDIA_EBOOKS_PATH}:/books 
+      - ${MEDIA_MANGA_PATH}:/manga
+      - ${MEDIA_COMICS_PATH}:/comics
+    ports:
+      - ${KAVITA_PORT}:5000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kavita.entrypoints=web"
+      - "traefik.http.routers.kavita.rule=Host(`kavita.servarr.local`)"
+      - "traefik.http.services.kavita.loadbalancer.server.port=5000"
+      - homepage.group=Media
+      - homepage.name=Kavita
+      - homepage.icon=kavita.png
+      - homepage.showstats=true
+      - homepage.href=http://kavita.servarr.local/
+      - homepage.description=Reading Server
+    restart: unless-stopped

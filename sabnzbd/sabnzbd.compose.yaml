@@ -1,0 +1,23 @@
+services:
+  sabnzbd:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_NZBD_PATH}/complete:/downloads
+      - ${DOWNLOAD_NZBD_PATH}/incomplete:/incomplete-downloads
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${SABNZBD_REF}.entrypoints=web"
+      - "traefik.http.routers.${SABNZBD_REF}.rule=Host(`${SABNZBD_URL}`)"
+      - "traefik.http.services.${SABNZBD_REF}.loadbalancer.server.port=${SABNZBD_UI_PORT}"    
+      - homepage.group=Arr
+      - homepage.name=SABnzbd
+      - homepage.icon=sabnzbd.png
+      - homepage.showstats=true
+      - homepage.href=http://${SABNZBD_URL}/
+      - homepage.description=The free and easy binary newsreader
+    restart: unless-stopped
