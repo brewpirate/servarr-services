@@ -13,7 +13,7 @@ services:
       - ${DELUGE_UI_PORT}:8112
       - ${DELUGE_DL_PORT}:6881
       - ${DELUGE_DL_PORT}:6881/udp
-      - ${QBITTORRENT_UI_PORT}:8085 #
+      - ${QBITTORRENT_UI_PORT}:8085
       - ${QBITTORRENT_DL_PORT}:6881
       - ${NZBGET_PORT}:6789
       - ${TRANSMISSION_UI_PORT}:9091
@@ -42,27 +42,25 @@ services:
   #     TOKEN: ${BESZEL_TOKEN}
 
   # Put downloaders behind a vpn! Or don't..
+  deluge:
+    extends:
+      file: ./services/vpn.compose.yaml
+      service: arr-service
+  nzbget:
+    extends:
+      file: ./services/vpn.compose.yaml
+      service: arr-service
   qbittorrent:
     extends:
       file: ./services/vpn.compose.yaml
       service: arr-service
 
-  deluge:
+  sabnzbd:
     extends:
       file: ./services/vpn.compose.yaml
       service: arr-service
 
   transmission:
-    extends:
-      file: ./services/vpn.compose.yaml
-      service: arr-service
-
-  nzbget:
-    extends:
-      file: ./services/vpn.compose.yaml
-      service: arr-service
-
-  sabnzbd:
     extends:
       file: ./services/vpn.compose.yaml
       service: arr-service
