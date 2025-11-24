@@ -14,7 +14,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.${SONARR_REF}.entrypoints=web"
       - "traefik.http.routers.${SONARR_REF}.rule=Host(`${SONARR_URL}`)"
-      - "traefik.http.services.${SONARR_REF}.loadbalancer.server.port=${SONARR_REF}"
+      - "traefik.http.services.${SONARR_REF}.loadbalancer.server.port=${SONARR_PORT}"
       - homepage.group=Arr
       - homepage.name=Sonarr
       - homepage.icon=sonarr.png
