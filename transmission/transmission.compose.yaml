@@ -1,0 +1,27 @@
+services:
+  transmission:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_TORRENT_PATH}:/downloads
+    ports:
+      - ${TRANSMISSION_UI_PORT}:9091
+      - ${TRANSMISSION_DL_PORT}:51413
+      - ${TRANSMISSION_DL_PORT}:51413/udp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${TRANSMISSION_REF}.entrypoints=web"
+      - "traefik.http.routers.${TRANSMISSION_REF}.rule=Host(`${TRANSMISSION_URL}`)"
+      - "traefik.http.services.${TRANSMISSION_REF}.loadbalancer.server.port=${TRANSMISSION_UI_PORT}"
+      - homepage.group=Clients
+      - homepage.name=Transmission
+      - homepage.icon=transmission.png
+      - homepage.href=http://${TRANSMISSION_URL}/
+      - "homepage.description=Transmission has the features you want from a BitTorrent client: encryption, a web interface, peer exchange, magnet links, DHT, µTP, UPnP and NAT-PMP port forwarding, webseed support, watch directories, tracker editing, global and per-torrent speed limits, and more."
+    profiles:
+      - transmission
+    restart: unless-stopped

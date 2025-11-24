@@ -16,7 +16,7 @@ services:
       - "traefik.http.routers.${QBITTORRENT_REF}.entrypoints=web"
       - "traefik.http.routers.${QBITTORRENT_REF}.rule=Host(`${QBITTORRENT_URL}`)"
       - "traefik.http.services.${QBITTORRENT_REF}.loadbalancer.server.port=${QBITTORRENT_UI_PORT}"
-      - homepage.group=Arr
+      - homepage.group=Clients
       - homepage.name=qBittorrent
       - homepage.icon=qbittorrent.png
       - homepage.href=http://${QBITTORRENT_URL}/
