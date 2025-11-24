@@ -26,19 +26,26 @@ Adds Gluetun VPN support to a container, make sure to assign the container port 
 
 ### Arr
 
+- LazyLibrarian
 - Lidarr
 - Mylar3
 - Pinchflat
 - Prowlarr
 - Radarr
-- SABnzbd
 - Sonarr
+
+### Download Clients
+
+- qbittorrent
+- SABnzbd
 
 ### Media
 
 - Jellyfin
 - Jellyseerr
 - Kavita
+- Plex
+- Overseerr
 
 ### Utils
 
