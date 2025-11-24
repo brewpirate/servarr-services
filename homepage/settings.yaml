@@ -22,6 +22,8 @@ statusStyle: "dot"
 layout:
   Arr:
     icon: mdi-pirate-#FFFFFF
+  Clients:
+    icon: mdi-cloud-download-#FFFFFF
   Media:
     icon: mdi-multimedia-#FFFFFF
   Utils:

@@ -36,8 +36,16 @@ Adds Gluetun VPN support to a container, make sure to assign the container port 
 
 ### Download Clients
 
-- qbittorrent
+#### NZB
+
+- nzbget
 - SABnzbd
+
+#### Torrent
+
+- deluge
+- qbittorrent
+- transmission
 
 ### Media
 

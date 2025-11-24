@@ -1,0 +1,27 @@
+services:
+  deluge:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_TORRENT_PATH}:/downloads
+    ports:
+      - ${DELUGE_UI_PORT}:8112
+      - ${DELUGE_DL_PORT}:6881
+      - ${DELUGE_DL_PORT}:6881/udp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${DELUGE_REF}.entrypoints=web"
+      - "traefik.http.routers.${DELUGE_REF}.rule=Host(`${DELUGE_URL}`)"
+      - "traefik.http.services.${DELUGE_REF}.loadbalancer.server.port=${DELUGE_UI_PORT}"
+      - homepage.group=Clients
+      - homepage.name=Deluge
+      - homepage.icon=deluge.png
+      - homepage.href=http://${DELUGE_URL}/
+      - homepage.description=Deluge is a lightweight, Free Software, cross-platform BitTorrent client.
+    profiles:
+      - deluge
+    restart: unless-stopped

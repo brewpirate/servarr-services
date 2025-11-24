@@ -19,7 +19,7 @@ services:
       - "traefik.http.routers.${PLEX_REF}.rule=Host(`${PLEX_URL}`)"
       - "traefik.http.services.${PLEX_REF}.loadbalancer.server.port=${PLEX_PORT}"
       - homepage.group=Media
-      - homepage.name=PLex
+      - homepage.name=Plex
       - homepage.icon=plex.png
       - homepage.showstats=true
       - homepage.href=http://${PLEX_URL}/

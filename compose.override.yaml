@@ -9,10 +9,16 @@ services:
     #   file: ./override/gluetun/proton.compose.yaml
     #   service: gluetun
     ports:
-      - ${SABNZBD_UI_PORT}:8080 # sabnzbd
-      - 9090:9090 # sabnzbd
-      - ${QBITTORRENT_UI_PORT}:8085 # qbittorrent
-      - ${QBITTORRENT_DL_PORT}:6881 # qbittorrent
+      - ${SABNZBD_UI_PORT}:8080
+      - ${DELUGE_UI_PORT}:8112
+      - ${DELUGE_DL_PORT}:6881
+      - ${DELUGE_DL_PORT}:6881/udp
+      - ${QBITTORRENT_UI_PORT}:8085
+      - ${QBITTORRENT_DL_PORT}:6881
+      - ${NZBGET_PORT}:6789
+      - ${TRANSMISSION_UI_PORT}:9091
+      - ${TRANSMISSION_DL_PORT}:51413
+      - ${TRANSMISSION_DL_PORT}:51413/udp
 
   # Enable Support for NVIDIA GPU Transcoding
   # jellyfin:
@@ -36,12 +42,25 @@ services:
   #     TOKEN: ${BESZEL_TOKEN}
 
   # Put downloaders behind a vpn! Or don't..
+  deluge:
+    extends:
+      file: ./services/vpn.compose.yaml
+      service: arr-service
+  nzbget:
+    extends:
+      file: ./services/vpn.compose.yaml
+      service: arr-service
   qbittorrent:
     extends:
       file: ./services/vpn.compose.yaml
       service: arr-service
 
   sabnzbd:
+    extends:
+      file: ./services/vpn.compose.yaml
+      service: arr-service
+
+  transmission:
     extends:
       file: ./services/vpn.compose.yaml
       service: arr-service

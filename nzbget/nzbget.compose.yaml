@@ -1,0 +1,25 @@
+services:
+  nzbget:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/nzbget:latest
+    container_name: nzbget
+    volumes:
+      - ./config:/config
+      - ${DOWNLOAD_NZB_PATH}:/downloads
+    ports:
+      - ${NZBGET_PORT}:6789
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${NZBGET_REF}.entrypoints=web"
+      - "traefik.http.routers.${NZBGET_REF}.rule=Host(`${NZBGET_URL}`)"
+      - "traefik.http.services.${NZBGET_REF}.loadbalancer.server.port=${NZBGET_PORT}"
+      - homepage.group=Clients
+      - homepage.name=Nzbget
+      - homepage.icon=nzbget.png
+      - homepage.href=http://${NZBGET_URL}/
+      - homepage.description=Nzbget is a usenet downloader, written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources.
+    profiles:
+      - nzbget
+    restart: unless-stopped
