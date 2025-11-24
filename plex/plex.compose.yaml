@@ -1,0 +1,29 @@
+services:
+  plex:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - VERSION=docker
+    volumes:
+      - ./config:/config
+      - ${MEDIA_SERIES_PATH}:/tv
+      - ${MEDIA_MOVIES_PATH}:/movies
+    ports:
+      - ${PLEX_PORT}:32400 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${PLEX_REF}.entrypoints=web"
+      - "traefik.http.routers.${PLEX_REF}.rule=Host(`${PLEX_URL}`)"
+      - "traefik.http.services.${PLEX_REF}.loadbalancer.server.port=${PLEX_PORT}"
+      - homepage.group=Media
+      - homepage.name=PLex
+      - homepage.icon=plex.png
+      - homepage.showstats=true
+      - homepage.href=http://${PLEX_URL}/
+      - homepage.description=Plex organizes video, music and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices.
+    profiles:
+      - plex
+    restart: unless-stopped

@@ -1,0 +1,27 @@
+services:
+  overseerr:
+    extends:
+      file: ../service-base.compose.yaml
+      service: arr-service
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    volumes:
+      - ./config:/config
+    ports:
+      - ${OVERSEERR_PORT}:5055
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${OVERSEERR_REF}.entrypoints=web"
+      - "traefik.http.routers.${OVERSEERR_REF}.rule=Host(`${OVERSEERR_URL}`)"
+      - "traefik.http.services.${OVERSEERR_REF}.loadbalancer.server.port=${OVERSEERR_PORT}"
+      - homepage.group=Media
+      - homepage.name=Overseerr
+      - homepage.icon=overseerr.png
+      - homepage.showstats=true
+      - homepage.href=http://${OVERSEERR_URL}/
+      - homepage.description=Overseerr is a request management and media discovery tool built to work with your existing Plex ecosystem.
+    profiles:
+      - plex
+    depends_on:
+      - plex
+    restart: unless-stopped

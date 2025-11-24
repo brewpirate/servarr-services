@@ -25,4 +25,7 @@ services:
       - homepage.showstats=true
       - homepage.href=http://${JELLYFIN_URL}/
       - homepage.description=Media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached.
+    profiles:
+      - jellyfin
+  
     restart: unless-stopped

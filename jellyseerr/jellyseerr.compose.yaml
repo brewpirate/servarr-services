@@ -20,4 +20,8 @@ services:
       - homepage.showstats=true
       - homepage.href=http://${JELLYSEERR_URL}/
       - homepage.description=Manage requests for your media library
+    profiles:
+      - jellyfin
+    depends_on:
+      - jellyfin
     restart: unless-stopped
