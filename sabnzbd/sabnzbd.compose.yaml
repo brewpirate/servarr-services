@@ -7,8 +7,8 @@ services:
     container_name: sabnzbd
     volumes:
       - ./config:/config
-      - ${DOWNLOAD_NZB_PATH}/complete:/downloads
       - ${DOWNLOAD_NZB_PATH}/incomplete:/incomplete-downloads
+      - ${DOWNLOAD_NZB_PATH}/complete:/nzb-downloads
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${SABNZBD_REF}.entrypoints=web"

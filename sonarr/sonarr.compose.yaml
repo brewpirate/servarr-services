@@ -8,6 +8,8 @@ services:
     volumes:
       - ./config:/config
       - ${MEDIA_SERIES_PATH}:/tv
+      - ${DOWNLOAD_NZB_PATH}/complete:/nzb-downloads
+      - ${DOWNLOAD_TORRENT_PATH}:/torrent-downloads
     ports:
       - ${SONARR_PORT}:8989
     labels:
