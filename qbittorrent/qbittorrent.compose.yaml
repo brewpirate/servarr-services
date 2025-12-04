@@ -10,7 +10,7 @@ services:
       - TORRENTING_PORT=${QBITTORRENT_DL_PORT}
     volumes:
       - ./config:/config
-      - ${DOWNLOAD_TORRENT_PATH}:/downloads
+      - ${DOWNLOAD_TORRENT_PATH}:/torrent-downloads
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${QBITTORRENT_REF}.entrypoints=web"
